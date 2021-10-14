@@ -8,15 +8,16 @@
 
 
 
-
-int getIntInMinMaxRange(char* message, char* errorMessage, int min, int max) {
+int getIntInMinMaxRange(char* message, char* errorMessage, int min, int max)
+{
 	int enterIntNumber;
 
 	printf("%s", message);
 	fflush(stdin);
 	scanf("%d", &enterIntNumber);
 
-	while (enterIntNumber < min || enterIntNumber > max) {
+	while ( (validacionNumerica(enterIntNumber)) || (enterIntNumber < min || enterIntNumber > max) )
+	{
 		printf("%s", errorMessage);
 		fflush(stdin);
 		scanf("%d", &enterIntNumber);
@@ -24,6 +25,22 @@ int getIntInMinMaxRange(char* message, char* errorMessage, int min, int max) {
 
 	return enterIntNumber;
 }
+
+
+
+int validacionNumerica(int number)
+{
+	int value = -1;
+
+	if (!isdigit(number))
+	{
+		value = 0;
+	}
+
+
+	return value;
+}
+
 
 
 
@@ -47,7 +64,8 @@ int getNumeroMayorQueMinimo(char* message, char* errorMessage, int min)
 
 
 
-float getFloatInMinMaxRange(char* message, char* errorMessage, int min, int max) {
+float getFloatInMinMaxRange(char* message, char* errorMessage, int min, int max)
+{
 	float enterFloatNumber;
 
 	printf("%s", message);
@@ -62,6 +80,7 @@ float getFloatInMinMaxRange(char* message, char* errorMessage, int min, int max)
 
 	return enterFloatNumber;
 }
+
 
 
 
@@ -83,19 +102,7 @@ void getString(char* string, char* message, char* errorMessage, int max)
 		length = strlen(notValidateString);
 	}
 
-
-	for (int i = 0; i < length; ++i)
-	{
-		if (i == 0)
-		{
-			notValidateString[i] = toupper(notValidateString[i]);
-		}
-		else
-		{
-			notValidateString[i] = tolower(notValidateString[i]);
-		}
-	}
-
+	printf("La cadena es: %s\n\n", notValidateString);
 
 	strcpy(string, notValidateString);
 }
@@ -105,18 +112,35 @@ void getString(char* string, char* message, char* errorMessage, int max)
 
 int stringValidation(char* string, int length)
 {
-	int functionValue = -1;
+	int functionValue = 0;
+
 
 	for (int i = 0; i < length; ++i)
 	{
-
-		if ( (string[i] > 64 && string[i] < 91) || (string[i] > 96 && string[i] < 123) )
+		if ( (isdigit(string[i])) || string[i] < 32 || (string[i] > 32 && string[i] < 65) || (string[i] > 90 && string[i] < 97) || string[i] > 122 )
 		{
-			functionValue = 0;
+			functionValue = -1;
+			break;
 		}
-
 	}
 
+
+	if (functionValue != -1)
+	{
+		for (int i = 0; i < length; ++i)
+		{
+			if (i == 0)
+			{
+				string[i] = toupper(string[i]);
+			}
+			else
+			{
+				string[i] = tolower(string[i]);
+			}
+		}
+	}
+
+	printf("\n\nfunction Value = %d\n\n", functionValue);
 
 	return functionValue;
 }

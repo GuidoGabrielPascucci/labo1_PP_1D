@@ -33,6 +33,10 @@ void inicializarPerritos(sPerro* perritos, int length)
 
 
 
+
+
+
+
 // HARDCODE PERROS
 void hardcodePerros(sPerro* perritos, int length)
 {
@@ -54,6 +58,156 @@ void hardcodePerros(sPerro* perritos, int length)
 
 
 
+
+
+
+
+
+
+// MODIFICACIONES
+void modificarPerroMenu(sPerro* listaPerros, int length, int index)
+{
+
+	int option;
+
+	option = getIntInMinMaxRange("\n\n------------------------------------------------------------------------------------------------\n"
+								 "Modificar Perrito"
+								 "Que dato desea modificar?:\n"
+								 "------------------------------------------------------------------------------------------------\n"
+								 "1. Nombre\n"
+								 "2. Raza\n"
+								 "3. Edad\n\n"
+								 "4. Volver al Menu Principal\n\n\n",
+
+								 "\n\n------------------------------------------------------------------------------------------------\n"
+								 "ERROR ! Opcion ingresada invalida. Por favor reingrese la opcion correspondiente."
+								 "Que dato desea modificar?:\n"
+								 "------------------------------------------------------------------------------------------------\n"
+								 "1. Nombre\n"
+								 "2. Raza\n"
+								 "3. Edad\n\n"
+								 "4. Volver al Menu Principal\n\n\n", 1, 4);
+
+
+
+
+	switch(option)
+	{
+		case 1:
+			modificarNombrePerrito(listaPerros, length, index);
+			break;
+
+		case 2:
+			modificarRazaPerrito(listaPerros, length, index);
+			break;
+
+		case 3:
+			modificarEdadPerrito(listaPerros, length, index);
+			break;
+
+		case 4:
+			// Exit Modificar Perro
+			break;
+	}
+
+}
+
+
+
+
+void modificarNombrePerrito(sPerro* listaPerros, int length, int index)
+{
+
+	for (int i = 0; i < length; ++i)
+	{
+		if (i == index)
+		{
+			getString(listaPerros[i].nombre, "Ingrese el nombre del perrito: ", "Nombre invalido. Por favor reingrese el nombre del perrito: ", MAX_NOMBRE);
+			printf("Has modificado el nombre del perrito");
+			break;
+		}
+	}
+
+}
+
+
+
+void modificarRazaPerrito(sPerro* listaPerros, int length, int index)
+{
+
+	for (int i = 0; i < length; ++i)
+	{
+		if (i == index)
+		{
+			getString(listaPerros[i].raza, "Ingrese la raza del perrito: ", "Raza invalida. Por favor reingrese la raza del perrito: ", MAX_NOMBRE);
+			printf("Has modificado la raza del perrito");
+			break;
+		}
+	}
+
+}
+
+
+
+
+void modificarEdadPerrito(sPerro* listaPerros, int length, int index)
+{
+
+	for (int i = 0; i < length; ++i)
+	{
+		if (i == index)
+		{
+			listaPerros[i].edad = getIntInMinMaxRange("Ingrese la edad del perrito: ", "Edad invalida. Por favor reingrese la edad del perrito: ", 0, 20);
+			printf("Has modificado la edad del perrito");
+			break;
+		}
+	}
+
+}
+
+
+
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// LISTAR PERROS:
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+void mostrarListaPerros(sPerro* perritos, int length)
+{
+	if (perritos != NULL && length > -1)
+	{
+		printf("\n-------------------------------------------------------------------------------------\n"
+				"Listado de perritos\n"
+				"-------------------------------------------------------------------------------------\n"
+				"%-20s %-20s %-20s %-20s", "ID", "Nombre", "Raza", "Edad\n"
+				"-------------------------------------------------------------------------------------\n");
+
+		for (int i = 0; i < length; ++i)
+		{
+			if (perritos[i].espacioVacio == FALSE)
+			{
+				mostrarPerro(perritos, i);
+			}
+		}
+	}
+
+	printf("\n\n\n");
+}
+
+
+
+void mostrarPerro(sPerro* perritos, int index)
+{
+	printf("%-20d %-20s %-20s %-20d\n", perritos[index].id, perritos[index].nombre, perritos[index].raza, perritos[index].edad);
+}
+
+
+
+
+
+
+
+
+// PROMEDIO DE EDAD PERRITOS
 
 int promedioEdadPerros(sPerro* perritos, int length, int contadorAltas)
 {
@@ -95,6 +249,15 @@ int promedioEdadPerros(sPerro* perritos, int length, int contadorAltas)
 
 	return value;
 }
+
+
+
+
+
+
+
+
+
 
 
 

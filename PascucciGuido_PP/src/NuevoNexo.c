@@ -65,7 +65,7 @@ void mainMenu(sEstadiaDiaria* listaEstadias, sPerro* listaPerros, int length)
 					break;
 
 				case 5:
-					//mostrarListaPerros(listaPerros, length);
+					mostrarListaPerros(listaPerros, length);
 					break;
 
 				case 6:
@@ -88,6 +88,89 @@ void mainMenu(sEstadiaDiaria* listaEstadias, sPerro* listaPerros, int length)
 // ------------------------------------------------------------------------------------------------------------------------------------------------------
 // RESERVAR ESTADIA:
 // ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+// RESERVAR ESTADIA MODIFICADO
+void reservarEstadia(sEstadiaDiaria* listaEstadias, sPerro* perritos, int length, int* contadorId, int* contadorAltas)
+{
+
+	if ( (listaEstadias != NULL && perritos != NULL) && (length > -1) )
+	{
+
+		if (!pedirDatos(listaEstadias, perritos, length, contadorId))
+		{
+			(*contadorId)++;
+			(*contadorAltas)++;
+		}
+
+	}
+	else
+	{
+		printf("ERROR !\nDatos Inválidos. Intente más tarde.\n\n\n\n");
+	}
+
+}
+
+
+// PEDIR DATOS MODIFICADO.
+int pedirDatos(sEstadiaDiaria* listaEstadias, sPerro* perritos, int length, int* contadorId)
+{
+	int valorDeFuncion = -1;
+	int index;
+
+	if ( (listaEstadias != NULL && perritos != NULL) && (length > -1) )
+	{
+
+		index = buscarEspacioLibre(listaEstadias, length);
+
+		if (index != -1)
+		{
+			printf("Por favor complete los siguientes datos:\n\n");
+
+			listaEstadias[index].id = generarId(*contadorId);
+			getString(listaEstadias[index].nombreDuenio, "Nombre del dueño: ", "Error. Por favor reingrese el nombre del dueño: ", MAX_NOMBRE); // MAXIMO DEL NOMBRE DEL DUEÑO?
+			listaEstadias[index].telefonoContacto = pedirTelefonoDeContacto(listaEstadias, length, index);
+
+			// Poner en una funcion
+			listaEstadias[index].fecha.dia = getIntInMinMaxRange("Ingrese el dia de estadia: ", "ERROR ! Fecha no valida. Por favor reingrese el dia de estadia: ", 1, 31);
+			listaEstadias[index].fecha.mes = getIntInMinMaxRange("Ingrese el mes de estadia: ", "ERROR ! Mes no valido. Por favor reingrese el mes de estadia: ", 1, 12);
+			listaEstadias[index].fecha.anio = getIntInMinMaxRange("Ingrese el anio de estadia: ", "ERROR ! Anio no valido. Por favor reingrese el anio de estadia: ", 2021, 2030);
+			//
+
+			listaEstadias[index].espacioVacio = FALSE;
+
+			valorDeFuncion = 0;
+			printf("\nEstadia agregada exitosamente\n\n\n");
+			system("pause");
+
+		}
+		else
+		{
+			printf("\n\nERROR !\nNo hay espacio disponible para agregar perros.\n\n\n");
+			system("pause");
+		}
+
+	}
+	else
+	{
+		printf("\nERROR !\nDatos invalidos. Por favor intente nuevamente\n\n\n\n");
+		system("pause");
+	}
+
+
+	return valorDeFuncion;
+}
+
+
+
+
+
+
+
+
+
+
+/*
 void reservarEstadia(sEstadiaDiaria* listaEstadias, sPerro* perritos, int length, int* contadorId, int* contadorAltas)
 {
 
@@ -117,25 +200,34 @@ void reservarEstadia(sEstadiaDiaria* listaEstadias, sPerro* perritos, int length
 	}
 
 }
+*/
 
 
-
-
+/*
 int pedirDatos(sEstadiaDiaria* listaEstadias, sPerro* perritos, int length, int* idResultante, int* contadorId, char* nombreDuenio, int* telefonoContacto, int* fecha)
 {
 	int valorDeFuncion = -1;
+	int index;
 
 	if ( (listaEstadias != NULL && perritos != NULL) && (length > -1) )
 	{
 
-		if (buscarEspacioLibre(listaEstadias, length) != -1)
+		index = buscarEspacioLibre(listaEstadias, length);
+
+		if (index != -1)
 		{
 			printf("Por favor complete los siguientes datos:\n\n");
 
 			*idResultante = generarId(*contadorId);
 			getString(nombreDuenio, "Nombre del dueño: ", "Error. Por favor reingrese el nombre del dueño: ", MAX_NOMBRE); // MAXIMO DEL NOMBRE DEL DUEÑO?
-			*telefonoContacto = getIntInMinMaxRange("Telefono de contacto: ", "Error. Por favor reingrese el telefono de contacto: ", 0, 9);
-			*fecha = getIntInMinMaxRange("Fecha de estadia: ", "Error. Por favor reingrese la fecha de estadia: ", 0, 30);
+
+			//telefonoContacto = getIntInMinMaxRange("Telefono de contacto: ", "Error. Por favor reingrese el telefono de contacto: ", 30000000, 1599999999);
+
+			modificarTelefonoDeContacto(listaEstadias, length, index);
+
+
+
+			*fecha = getIntInMinMaxRange("Fecha de estadia: ", "Error. Por favor reingrese la fecha de estadia: ", 1, 30);
 
 			valorDeFuncion = 0;
 
@@ -156,11 +248,11 @@ int pedirDatos(sEstadiaDiaria* listaEstadias, sPerro* perritos, int length, int*
 
 	return valorDeFuncion;
 }
+*/
 
 
 
-
-
+/*
 int agregarEstadia(sEstadiaDiaria* listaEstadias, sPerro* perritos, int length, int idResultante, char* nombreDuenio, int telefonoContacto, int fecha)
 {
 	int valorDeFuncion = -1;
@@ -193,26 +285,7 @@ int agregarEstadia(sEstadiaDiaria* listaEstadias, sPerro* perritos, int length, 
 
 	return valorDeFuncion;
 }
-
-
-
-
-int buscarEspacioLibre(sEstadiaDiaria* listaEstadias, int length)
-{
-	int index = -1;
-
-	for (int i = 0; i < length; ++i)
-	{
-		if (listaEstadias[i].espacioVacio == TRUE)
-		{
-			index = i;
-			break;
-		}
-	}
-
-	return index;
-}
-
+*/
 
 
 
@@ -239,7 +312,14 @@ void modificarEstadia(sEstadiaDiaria* listaEstadias, sPerro* listaPerros, int le
 				id = getNumeroMayorQueMinimo("Ingrese el ID que desea modificar: ", "ERROR !\nEl ID no existe. Por favor reingrese un ID valido: ", ID);
 				indexDelId = buscarEstadiaPorId(listaEstadias, length, id);
 
-				option = menuDeModificacion(listaEstadias, listaPerros, length, indexDelId);
+				if (indexDelId != -1)
+				{
+					option = menuDeModificacion(listaEstadias, listaPerros, length, indexDelId);
+				}
+				else
+				{
+					printf("El id que intenta buscar no existe. Por favor intentelo nuevamente.\n\n\n");
+				}
 
 			} while(option != 3);
 
@@ -286,36 +366,20 @@ int menuDeModificacion(sEstadiaDiaria* listaEstadias, sPerro* listaPerros, int l
 	{
 		case 1:
 			modificarTelefonoDeContacto(listaEstadias, length, index);
+			printf("Has cambiado el telefono de contacto!\n\n");
 			break;
 
 		case 2:
-			//modificarPerro(listaPerros, length, index);
+			modificarPerroMenu(listaPerros, length, index);
 			break;
 
 		case 3:
-			// Exit modificaciones
+			// Exit Modificaciones
 			break;
 	}
 
 
 	return option;
-}
-
-
-
-void modificarTelefonoDeContacto(sEstadiaDiaria* listaEstadias, int length, int index)
-{
-
-	for (int i = 0; i < length; ++i)
-	{
-		if (i == index)
-		{
-			listaEstadias[i].telefonoContacto = getIntInMinMaxRange("Ingrese otro telefono de contacto: ", "ERROR !\nPor favor reingrese otro telefono de contacto: ", 0, 100);
-			printf("Has cambiado el telefono de contacto!\n\n");
-			break;
-		}
-	}
-
 }
 
 
@@ -376,7 +440,7 @@ void cancelarEstadia(sEstadiaDiaria* listaEstadias, sPerro* listaPerros, int len
 
 
 
-int removerEstadia(sEstadiaDiaria* listaEstadias, int length, int id)
+int removerEstadia(sEstadiaDiaria* listaEstadias, int length, int id) // DEBERIA INCLUIR EL LISTADO DE PERROS Y HACER LA BAJA LOGICA TAMBIEN
 {
 	int value = -1;
 
@@ -396,7 +460,7 @@ int removerEstadia(sEstadiaDiaria* listaEstadias, int length, int id)
 
 
 
-int verificacionDeSeguridad(sEstadiaDiaria* listaEstadias, int length, int indexDelId)
+int verificacionDeSeguridad(sEstadiaDiaria* listaEstadias, int length, int indexDelId) // DEBERIA INCLUIR EL LISTADO DE PERROS Y DESHACER LA BAJA LOGICA TAMBIEN
 {
 	int value = -1;
 	int option;
@@ -431,81 +495,6 @@ int verificacionDeSeguridad(sEstadiaDiaria* listaEstadias, int length, int index
 
 
 	return value;
-}
-
-
-
-
-
-
-// ------------------------------------------------------------------------------------------------------------------------------------------------------
-// LISTAR ESTADIA:
-// ------------------------------------------------------------------------------------------------------------------------------------------------------
-void mostrarListaEstadias(sEstadiaDiaria* estadias, int length)
-{
-	if (estadias != NULL && length > -1)
-	{
-		printf("\n-------------------------------------------------------------------------------------\n"
-				"Listado de estadias\n"
-				"-------------------------------------------------------------------------------------\n"
-				"%-20s %-20s %-20s %-20s", "ID", "Nombre Duenio", "Telefono de contacto", "Fecha\n"
-				"-------------------------------------------------------------------------------------\n");
-
-		for (int i = 0; i < length; ++i)
-		{
-			if (estadias[i].espacioVacio == FALSE)
-			{
-				mostrarEstadia(estadias, i);
-			}
-		}
-	}
-
-	printf("\n\n\n");
-}
-
-
-
-void mostrarEstadia(sEstadiaDiaria* estadias, int index)
-{
-	printf("%-20d %-20s %-20d %-20d\n", estadias[index].id, estadias[index].nombreDuenio, estadias[index].telefonoContacto, estadias[index].fecha);
-}
-
-
-
-
-
-
-
-// ------------------------------------------------------------------------------------------------------------------------------------------------------
-// LISTAR PERROS:
-// ------------------------------------------------------------------------------------------------------------------------------------------------------
-void mostrarListaPerros(sPerro* perritos, int length)
-{
-	if (perritos != NULL && length > -1)
-	{
-		printf("\n-------------------------------------------------------------------------------------\n"
-				"Listado de perritos\n"
-				"-------------------------------------------------------------------------------------\n"
-				"%-20s %-20s %-20s %-20s", "ID", "Nombre", "Raza", "Edad\n"
-				"-------------------------------------------------------------------------------------\n");
-
-		for (int i = 0; i < length; ++i)
-		{
-			if (perritos[i].espacioVacio == FALSE)
-			{
-				mostrarPerro(perritos, i);
-			}
-		}
-	}
-
-	printf("\n\n\n");
-}
-
-
-
-void mostrarPerro(sPerro* perritos, int index)
-{
-	printf("%-20d %-20s %-20s %-20d\n", perritos[index].id, perritos[index].nombre, perritos[index].raza, perritos[index].edad);
 }
 
 
