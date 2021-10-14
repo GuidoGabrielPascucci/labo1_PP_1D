@@ -8,3 +8,5 @@ doxygen, solamente las comenté mientras las realizaba para ordenar un poco el c
 
 Reitero, no es una excusa ya que todos tuvimos una semana para realizarlo, pero quería comentarles la situación para que cuando vean el código entiendan por qué se encuentra
 en esas condiciones y con algunas cuestiones sin resolver. 
+
+Gracias por leer.
