@@ -3,14 +3,21 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 #include "ArrayPerros.h"
-#include "ArrayEstadias.h"
 #include "Inputs.h"
 
 
 
 
-// INICIALIZAR PERRITOS
+
+/**
+ * @fn void inicializarPerritos(sPerro*, int)
+ * @brief [Inicializar Perritos -Pone a todos los campos 'espacio vacio' de la estructura Perro en VERDADERO(1)]
+ *
+ * @param perritos
+ * @param length
+ */
 void inicializarPerritos(sPerro* perritos, int length)
 {
 
@@ -35,10 +42,14 @@ void inicializarPerritos(sPerro* perritos, int length)
 
 
 
-
-
-// HARDCODE PERROS
-void hardcodePerros(sPerro* perritos, int length)
+/**
+ * @fn void sPerro_hardcodeo(sPerro*, int)
+ * @brief [sPerro Hardcodeo - Ingreso de datos a priori de 3 perritos con sus respectivos datos (ID; Nombre; Raza; Edad)]
+ *
+ * @param perritos
+ * @param length
+ */
+void sPerro_hardcodeo(sPerro* perritos, int length)
 {
 	int ids[] = {7000, 7001, 7002};
 	char nombres[][MAX_NOMBRE] = {"Lobo", "Sheila", "Reina"};
@@ -60,144 +71,88 @@ void hardcodePerros(sPerro* perritos, int length)
 
 
 
-
-
-
-
-// MODIFICACIONES
-void modificarPerroMenu(sPerro* listaPerros, int length, int index)
-{
-
-	int option;
-
-	option = getIntInMinMaxRange("\n\n------------------------------------------------------------------------------------------------\n"
-								 "Modificar Perrito"
-								 "Que dato desea modificar?:\n"
-								 "------------------------------------------------------------------------------------------------\n"
-								 "1. Nombre\n"
-								 "2. Raza\n"
-								 "3. Edad\n\n"
-								 "4. Volver al Menu Principal\n\n\n",
-
-								 "\n\n------------------------------------------------------------------------------------------------\n"
-								 "ERROR ! Opcion ingresada invalida. Por favor reingrese la opcion correspondiente."
-								 "Que dato desea modificar?:\n"
-								 "------------------------------------------------------------------------------------------------\n"
-								 "1. Nombre\n"
-								 "2. Raza\n"
-								 "3. Edad\n\n"
-								 "4. Volver al Menu Principal\n\n\n", 1, 4);
-
-
-
-
-	switch(option)
-	{
-		case 1:
-			modificarNombrePerrito(listaPerros, length, index);
-			break;
-
-		case 2:
-			modificarRazaPerrito(listaPerros, length, index);
-			break;
-
-		case 3:
-			modificarEdadPerrito(listaPerros, length, index);
-			break;
-
-		case 4:
-			// Exit Modificar Perro
-			break;
-	}
-
-}
-
-
-
-
-void modificarNombrePerrito(sPerro* listaPerros, int length, int index)
-{
-
-	for (int i = 0; i < length; ++i)
-	{
-		if (i == index)
-		{
-			getString(listaPerros[i].nombre, "Ingrese el nombre del perrito: ", "Nombre invalido. Por favor reingrese el nombre del perrito: ", MAX_NOMBRE);
-			printf("Has modificado el nombre del perrito");
-			break;
-		}
-	}
-
-}
-
-
-
-void modificarRazaPerrito(sPerro* listaPerros, int length, int index)
-{
-
-	for (int i = 0; i < length; ++i)
-	{
-		if (i == index)
-		{
-			getString(listaPerros[i].raza, "Ingrese la raza del perrito: ", "Raza invalida. Por favor reingrese la raza del perrito: ", MAX_NOMBRE);
-			printf("Has modificado la raza del perrito");
-			break;
-		}
-	}
-
-}
-
-
-
-
-void modificarEdadPerrito(sPerro* listaPerros, int length, int index)
-{
-
-	for (int i = 0; i < length; ++i)
-	{
-		if (i == index)
-		{
-			listaPerros[i].edad = getIntInMinMaxRange("Ingrese la edad del perrito: ", "Edad invalida. Por favor reingrese la edad del perrito: ", 0, 20);
-			printf("Has modificado la edad del perrito");
-			break;
-		}
-	}
-
-}
-
-
-
-
-// ------------------------------------------------------------------------------------------------------------------------------------------------------
-// LISTAR PERROS:
-// ------------------------------------------------------------------------------------------------------------------------------------------------------
-void mostrarListaPerros(sPerro* perritos, int length)
-{
-	if (perritos != NULL && length > -1)
-	{
-		printf("\n-------------------------------------------------------------------------------------\n"
-				"Listado de perritos\n"
-				"-------------------------------------------------------------------------------------\n"
-				"%-20s %-20s %-20s %-20s", "ID", "Nombre", "Raza", "Edad\n"
-				"-------------------------------------------------------------------------------------\n");
-
-		for (int i = 0; i < length; ++i)
-		{
-			if (perritos[i].espacioVacio == FALSE)
-			{
-				mostrarPerro(perritos, i);
-			}
-		}
-	}
-
-	printf("\n\n\n");
-}
-
-
-
+/**
+ * @fn void mostrarPerro(sPerro*, int)
+ * @brief [Mostrar Perro - Muestra la carga individual de un perrito en particular]
+ *
+ * @param perritos
+ * @param index
+ */
 void mostrarPerro(sPerro* perritos, int index)
 {
-	printf("%-20d %-20s %-20s %-20d\n", perritos[index].id, perritos[index].nombre, perritos[index].raza, perritos[index].edad);
+	printf("%-20d %-25s %-30s %-20d\n", perritos[index].id, perritos[index].nombre, perritos[index].raza, perritos[index].edad);
+}
+
+
+
+
+
+/**
+ * @fn void mostrarListaPerros(sPerro*, int)
+ * @brief [Mostrar Lista Perros - Muestra el total de perritos cargados en el sistema]
+ *
+ * @param perritos
+ * @param length
+ */
+void mostrarListaPerros(sPerro* perritos, int length)
+{
+
+		if (perritos != NULL && length > -1)
+		{
+			printf("\n\n---------------------------------------------------------------------------------------------------------------------------------\n"
+					"Listado de perritos\n"
+					"---------------------------------------------------------------------------------------------------------------------------------\n"
+					"%-20s %-25s %-30s %-20s", "ID", "Nombre", "Raza", "Edad\n"
+					"---------------------------------------------------------------------------------------------------------------------------------\n");
+
+			for (int i = 0; i < length; ++i)
+			{
+				if (perritos[i].espacioVacio == FALSE)
+				{
+					mostrarPerro(perritos, i);
+				}
+			}
+
+			printf("\n\n\n");
+		}
+
+}
+
+
+
+
+
+/**
+ * @fn void listarPerros(sPerro*, int, int)
+ * @brief [Listar Perros - Si el contador de estadias/altas es mayor a cero, permite mostrar la lista completa de perritos cargados en sistema]
+ *
+ * @param listaPerros
+ * @param length
+ * @param contadorAltas
+ */
+void listarPerros(sPerro* listaPerros, int length, int contadorAltas)
+{
+
+	if (contadorAltas > 0)
+	{
+
+		if (listaPerros != NULL && length > -1)
+		{
+			mostrarListaPerros(listaPerros, length);
+		}
+		else
+		{
+			printf("\nERROR ! Los datos ingresados son incorrectos. Intentelo nuevamente\n\n\n");
+		}
+
+	}
+	else
+	{
+		printf("\nERROR ! No hay datos cargados en el sistema.\n\n");
+		system("pause");
+	}
+
+
 }
 
 
@@ -205,11 +160,48 @@ void mostrarPerro(sPerro* perritos, int index)
 
 
 
+/**
+ * @fn int cargarPerritoPorId(sPerro*, int, int)
+ * @brief [Cargar Perrito Por ID - Muestra primero la lista de perritos para que el usuario seleccione mediante identificador ID que perrito quiere cargar en su estadia]
+ *
+ * @param listaPerritos
+ * @param length
+ * @param index
+ * @return Retorna un NUMERO ENTERO que es la ID del perrito.
+ */
+int cargarPerritoPorId(sPerro* listaPerritos, int length, int index)
+{
+	int idDelPerrito;
+
+	if (listaPerritos != NULL && length > -1 && index > -1)
+	{
+		mostrarListaPerros(listaPerritos, length);
+		idDelPerrito = getIntInMinMaxRange("Ingrese el numero de ID del perrito que quiera cargar en la estadia: ", "ERROR ! ID invalida\nPor favor reingrese un numero de ID valido de un perrito que desee cargar en la estadia: ", 7000, 7002);
+	}
+	else
+	{
+		printf("Error en la carga.");
+	}
 
 
-// PROMEDIO DE EDAD PERRITOS
+	return idDelPerrito;
+}
 
-int promedioEdadPerros(sPerro* perritos, int length, int contadorAltas)
+
+
+
+
+
+/**
+ * @fn int calcularPromedioEdadPerros(sPerro*, int, int)
+ * @brief [Calcular Promedio Edad Perros - Realiza el calculo del promedio de edad de todos los perritos cargados en el sistema]
+ *
+ * @param perritos
+ * @param length
+ * @param contadorAltas
+ * @return Retorna un NUMERO ENTERO: [-1] si hubo un error / [0] si se pudo realizar la operacion
+ */
+int calcularPromedioEdadPerros(sPerro* perritos, int length, int contadorAltas)
 {
 	int value = -1;
 	int acumuladorEdad = 0;
@@ -230,7 +222,8 @@ int promedioEdadPerros(sPerro* perritos, int length, int contadorAltas)
 			}
 
 			promedioEdad = (float)acumuladorEdad / contadorPerritos;
-			printf("\nPROMEDIO DE EDAD DE LOS PERRITOS: %.2f", promedioEdad);
+			printf("\nPROMEDIO DE EDAD DE LOS PERRITOS: %.2f\n\n", promedioEdad);
+			system("pause");
 
 		}
 		else
@@ -249,13 +242,6 @@ int promedioEdadPerros(sPerro* perritos, int length, int contadorAltas)
 
 	return value;
 }
-
-
-
-
-
-
-
 
 
 

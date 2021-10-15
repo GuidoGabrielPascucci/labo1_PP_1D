@@ -4,9 +4,6 @@
 #define ARRAYESTADIAS_H_
 
 
-#include "ArrayPerros.h"
-
-
 typedef struct
 {
 
@@ -31,32 +28,16 @@ typedef struct
 
 
 
-// INICIALIZAR ESTADIAS
+
 void inicializarEstadias(sEstadiaDiaria* listaEstadias, int length);
-
-
-// BUSCAR ESPACIO LIBRE EN ESTADIAS
 int buscarEspacioLibre(sEstadiaDiaria* listaEstadias, int length);
-
-
-
-
-// PEDIR DATOS DE ESTADIA
 int pedirTelefonoDeContacto(sEstadiaDiaria* listaEstadias, int length, int index);
-
-
-
-
-// MODIFICACIONES
+void pedirFecha(sEstadiaDiaria* listaEstadias, int index);
 void modificarTelefonoDeContacto(sEstadiaDiaria* listaEstadias, int length, int index);
-
-
-
-// MOSTRAR
-void mostrarListaEstadias(sEstadiaDiaria* estadias, int length);
-void mostrarEstadia(sEstadiaDiaria* estadias, int index);
-
-
+int removerEstadia(sEstadiaDiaria* listaEstadias, int length, int id);
+int buscarEstadiaPorId(sEstadiaDiaria* listaEstadias, int length, int id);
+void listarEstadiasPorFechaDescendente(sEstadiaDiaria* estadias, int length);
+void ordenarEstadia(sEstadiaDiaria* estadias, int i);
 
 
 
