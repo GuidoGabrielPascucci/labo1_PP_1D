@@ -9,6 +9,9 @@
 #define TRUE 1
 #define FALSE 0
 
+#define MAX_NOMBRE_DUENIO 41
+#define MAX_DUENIOS 5
+
 
 typedef struct
 {

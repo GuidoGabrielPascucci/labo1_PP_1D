@@ -16,15 +16,20 @@ typedef struct
 
 typedef struct
 {
+	/*
+	char nombreDuenio[21];
+	int telefonoContacto;
+	*/
 
- int id;
- char nombreDuenio[21];
- int telefonoContacto;
- int idPerro;
- sFecha fecha;
- int espacioVacio;
+	int idDuenio;
+
+	int id;
+	int idPerro;
+	sFecha fecha;
+	int espacioVacio;
 
 } sEstadiaDiaria;
+
 
 
 
@@ -38,9 +43,6 @@ int removerEstadia(sEstadiaDiaria* listaEstadias, int length, int id);
 int buscarEstadiaPorId(sEstadiaDiaria* listaEstadias, int length, int id);
 void listarEstadiasPorFechaDescendente(sEstadiaDiaria* estadias, int length);
 void ordenarEstadia(sEstadiaDiaria* estadias, int i);
-
-
-
 
 
 

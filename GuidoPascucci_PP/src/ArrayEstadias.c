@@ -151,17 +151,17 @@ void pedirFecha(sEstadiaDiaria* listaEstadias, int index)
  */
 void modificarTelefonoDeContacto(sEstadiaDiaria* listaEstadias, int length, int index)
 {
-	int option;
-
+	//int option;
+/*
 	option = getIntInMinMaxRange("Ingrese la opcion correspondiente:\n"
 								 "1. Telefono de linea\n"
 								 "2. Celular\n\n\n",
 
 								 "ERROR ! La opcion ingresada no es valida. Reingrese la opcion correspondiente:\n"
 								 "1. Telefono de linea\n"
-								 "2. Celular\n\n\n", 1, 2);
+								 "2. Celular\n\n\n", 1, 2);*/
 
-
+/*
 	if (option == 1)
 	{
 		for (int i = 0; i < length; ++i)
@@ -184,6 +184,7 @@ void modificarTelefonoDeContacto(sEstadiaDiaria* listaEstadias, int length, int 
 					}
 				}
 	}
+	*/
 
 	printf("\n********************************************************************************************************************************************\n\n"
 		   "Has cambiado el telefono de contacto!\n\n"
